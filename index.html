@@ -4,8 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playable Painting and Animation</title>
-    <script defer src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #5d7d3d;
+        color: white;
+      }
+      #canvasContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+      #playableCanvas {
+        border: 2px solid #888;
+        border-radius: 10px;
+        background-color: white;
+        margin: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .control-panel {
+        background-color: #444;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 10px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      button,
+      select,
+      input {
+        padding: 8px;
+        border-radius: 4px;
+        border: none;
+      }
+      button {
+        cursor: pointer;
+        background-color: #666;
+        color: white;
+      }
+      button:hover {
+        background-color: #777;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div id="canvasContainer">
+      <h1>Playable Painting & Animation</h1>
+
+      <div id="animationControls" class="control-panel">
+        <button id="addFrame">Add Frame (A)</button>
+        <button id="playAnimation">Play Animation (P)</button>
+        <button id="clearFrames">Clear Frames</button>
+        <button id="exportAnimation">Export Animation</button>
+        <span id="frameCounter">Frames: 0</span>
+        <label>
+          Speed:
+          <input
+            type="range"
+            id="playbackSpeed"
+            min="50"
+            max="1000"
+            value="500"
+            step="50"
+          />
+          <span id="speedValue">500ms</span>
+        </label>
+        <label>
+          Import: <input type="file" id="importAnimation" accept=".zip" />
+        </label>
+      </div>
+
+      <div id="toolbar" class="control-panel">
+        <label>
+          Color: <input type="color" id="brushColor" value="#000000" />
+        </label>
+        <label>
+          Size: <input type="range" id="brushSize" min="1" max="50" value="5" />
+          <span id="brushSizeValue">5</span>
+        </label>
+        <select id="brushShape">
+          <option value="round">Round</option>
+          <option value="square">Square</option>
+        </select>
+        <button id="eraserToggle">Eraser (E)</button>
+        <button id="undo">Undo (Z)</button>
+        <button id="redo">Redo (Y)</button>
+        <button id="clearCanvas">Clear (C)</button>
+        <select id="exportFormat">
+          <option value="png">PNG</option>
+          <option value="jpg">JPG</option>
+          <option value="pdf">PDF</option>
+        </select>
+        <button id="exportCanvas">Export</button>
+      </div>
+
+      <canvas id="playableCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
